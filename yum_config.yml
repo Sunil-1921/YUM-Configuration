@@ -1,0 +1,25 @@
+- hosts: all
+  tasks:
+          - file:
+                  state: directory
+                  path: "/dvd1"
+
+          - mount:
+                  src: "/dev/cdrom"
+                  path: "/dvd1"
+                  state: mounted
+                  fstype: "iso9660"
+
+          - name: "Configuring YUM"
+            yum_repository:
+                  baseurl: "/dvd1/AppStream"
+                  name: "appstream"
+                  gpgcheck: no
+                  description: "AppStream for YUM"
+                  
+          - name: "Configuring YUM"
+            yum_repository:
+                  baseurl: "/dvd1/BaseOS"
+                  name: "baseos"
+                  gpgcheck: no
+                  description: "BaseOS for YUM"
